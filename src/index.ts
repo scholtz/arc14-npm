@@ -29,4 +29,8 @@ const makeArc14Tx = async (
   const params = await algod.getTransactionParams().do();
   return makeArc14TxWithSuggestedParams(realm, authAddress, params);
 };
-export { makeArc14Tx, makeArc14TxWithSuggestedParams };
+
+const makeArc14AuthHeader = (signedTx: Uint8Array): string => {
+  return `SigTx ${Buffer.from(signedTx).toString("base64")}`;
+};
+export { makeArc14Tx, makeArc14TxWithSuggestedParams, makeArc14AuthHeader };

@@ -62,3 +62,23 @@ const tx = await makeArc14TxWithSuggestedParams(
 expect(tx.fee).toBe(0n);
 expect(Buffer.from(tx.note).toString("base64url")).toBe(Buffer.from("realm#ARC14").toString("base64url"));
 ```
+
+
+### makeArc14AuthHeader
+
+```
+import { makeArc14Tx } from "arc14"
+
+const addr = await arc76.generateAlgorandAccount("my_cicd_password");
+const params: SuggestedParamsFromAlgod = ..;
+const tx = await makeArc14TxWithSuggestedParams(
+    "realm#ARC14",
+    algosdk.encodeAddress(addr.addr.publicKey),
+    params
+);
+const signed = tx.signTxn(addr.sk);
+const header = makeArc14AuthHeader(signed);
+expect(header).toBe(
+  "SigTx gqNzaWfEQOi...5cGWjcGF5"
+);
+```
